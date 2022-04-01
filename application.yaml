@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: myapp-argo-application
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/CFDevSecOps/Argocddemo1.git
+    targetRevision: HEAD
+    path: dev
+  destination: 
+    server: monitorintools-dns-3365d2ab.hcp.centralus.azmk8s.io
+    namespace: myapp
+
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+
+    automated:
+      selfHeal: true
+      prune: true
